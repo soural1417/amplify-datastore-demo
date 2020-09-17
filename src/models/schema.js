@@ -1,15 +1,7 @@
 export const schema = {
     "models": {
         "Todo": {
-            "syncable": true,
             "name": "Todo",
-            "pluralName": "Todos",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                }
-            ],
             "fields": {
                 "id": {
                     "name": "id",
@@ -34,7 +26,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 }
-            }
+            },
+            "syncable": true,
+            "pluralName": "Todos",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                }
+            ]
         }
     },
     "enums": {
@@ -46,5 +46,6 @@ export const schema = {
             ]
         }
     },
+    "nonModels": {},
     "version": "2efb24070e17f24b9e0be8d247b26518"
 };

@@ -71,7 +71,7 @@
 		"apiamplifyDatasource": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/amplify-todo-app-youtube-75210-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/amplify-amplify-datastore-demo-dev-180513-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"CreateAPIKey": 0,
 					"AppSyncApiName": "amplifyDatasource",
@@ -79,25 +79,25 @@
 					"DynamoDBEnableServerSideEncryption": "false",
 					"AuthCognitoUserPoolId": {
 						"Fn::GetAtt": [
-							"authtodoappc3bcc904",
+							"authamplifydatastoredemo4028768b",
 							"Outputs.UserPoolId"
 						]
 					},
-					"S3DeploymentBucket": "amplify-todo-app-youtube-75210-deployment",
-					"S3DeploymentRootKey": "amplify-appsync-files/de0a1b4f4f75a04f978bbf2a39604e6222ed2284",
-					"env": "youtube"
+					"S3DeploymentBucket": "amplify-amplify-datastore-demo-dev-180513-deployment",
+					"S3DeploymentRootKey": "amplify-appsync-files/3e39619937ec8ce0f113d9c3462ab04cdbd93b48",
+					"env": "dev"
 				}
 			}
 		},
-		"authtodoappc3bcc904": {
+		"authamplifydatastoredemo4028768b": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/amplify-todo-app-youtube-75210-deployment/amplify-cfn-templates/auth/todoappc3bcc904-cloudformation-template.yml",
+				"TemplateURL": "https://s3.amazonaws.com/amplify-amplify-datastore-demo-dev-180513-deployment/amplify-cfn-templates/auth/amplifydatastoredemo4028768b-cloudformation-template.yml",
 				"Parameters": {
-					"identityPoolName": "todoappc3bcc904_identitypool_c3bcc904",
+					"identityPoolName": "amplifydatastoredemo4028768b_identitypool_4028768b",
 					"allowUnauthenticatedIdentities": false,
-					"resourceNameTruncated": "todoapc3bcc904",
-					"userPoolName": "todoappc3bcc904_userpool_c3bcc904",
+					"resourceNameTruncated": "amplif4028768b",
+					"userPoolName": "amplifydatastoredemo4028768b_userpool_4028768b",
 					"autoVerifiedAttributes": "email",
 					"mfaConfiguration": "OFF",
 					"mfaTypes": "SMS Text Message",
@@ -113,9 +113,10 @@
 					"userpoolClientRefreshTokenValidity": 30,
 					"userpoolClientWriteAttributes": "email",
 					"userpoolClientReadAttributes": "email",
-					"userpoolClientLambdaRole": "todoapc3bcc904_userpoolclient_lambda_role",
+					"userpoolClientLambdaRole": "amplif4028768b_userpoolclient_lambda_role",
 					"userpoolClientSetAttributes": false,
-					"resourceName": "todoappc3bcc904",
+					"sharedId": "4028768b",
+					"resourceName": "amplifydatastoredemo4028768b",
 					"authSelections": "identityPoolAndUserPool",
 					"authRoleArn": {
 						"Fn::GetAtt": [
@@ -131,8 +132,9 @@
 					},
 					"useDefault": "default",
 					"userPoolGroupList": "",
+					"serviceName": "Cognito",
 					"dependsOn": "",
-					"env": "youtube"
+					"env": "dev"
 				}
 			}
 		},
@@ -140,7 +142,7 @@
 			"DependsOn": [
 				"AuthRole",
 				"UnauthRole",
-				"authtodoappc3bcc904"
+				"authamplifydatastoredemo4028768b"
 			],
 			"Type": "AWS::Lambda::Function",
 			"Properties": {
@@ -161,8 +163,8 @@
 								"    let authParamsJson = { 'Version': '2012-10-17','Statement': [{'Effect': 'Allow','Principal': {'Federated': 'cognito-identity.amazonaws.com'},'Action': 'sts:AssumeRoleWithWebIdentity','Condition': {'StringEquals': {'cognito-identity.amazonaws.com:aud': idpId},'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr': 'authenticated'}}}]};",
 								"    let unauthParamsJson = { 'Version': '2012-10-17','Statement': [{'Effect': 'Allow','Principal': {'Federated': 'cognito-identity.amazonaws.com'},'Action': 'sts:AssumeRoleWithWebIdentity','Condition': {'StringEquals': {'cognito-identity.amazonaws.com:aud': idpId},'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr': 'unauthenticated'}}}]};",
 								"    if (event.RequestType == 'Delete') {",
-								"        delete authParamsJson.Statement.Condition;",
-								"        delete unauthParamsJson.Statement.Condition;",
+								"        delete authParamsJson.Statement[0].Condition;",
+								"        delete unauthParamsJson.Statement[0].Condition;",
 								"        let authParams = { PolicyDocument: JSON.stringify(authParamsJson),RoleName: authRoleName};",
 								"        let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),RoleName: unauthRoleName};",
 								"        const iam = new aws.IAM({ apiVersion: '2010-05-08', region: event.ResourceProperties.region});",
@@ -199,7 +201,7 @@
 					}
 				},
 				"Handler": "index.handler",
-				"Runtime": "nodejs8.10",
+				"Runtime": "nodejs10.x",
 				"Timeout": "300",
 				"Role": {
 					"Fn::GetAtt": [
@@ -223,7 +225,7 @@
 				},
 				"idpId": {
 					"Fn::GetAtt": [
-						"authtodoappc3bcc904",
+						"authamplifydatastoredemo4028768b",
 						"Outputs.IdentityPoolId"
 					]
 				},

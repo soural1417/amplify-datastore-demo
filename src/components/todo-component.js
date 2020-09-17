@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CreateTodo from "./todo/create-todo";
 import TodoList from "./todo/todo-list";
-import { DataStore, Predicates } from "@aws-amplify/datastore";
+import { DataStore } from "@aws-amplify/datastore";
 import { Todo, TodoStatus } from "../models";
 
 var todos = [];

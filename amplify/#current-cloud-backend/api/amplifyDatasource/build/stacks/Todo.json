@@ -196,7 +196,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Todo",
+                                    "Todo0107c6",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -211,7 +211,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Todo",
+                                    "Todo52029a",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"

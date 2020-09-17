@@ -5,10 +5,10 @@
     "DynamoDBEnableServerSideEncryption": "false",
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
-            "authtodoappc3bcc904",
+            "authamplifydatastoredemo4028768b",
             "Outputs.UserPoolId"
         ]
     },
-    "S3DeploymentBucket": "amplify-todo-app-youtube-75210-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/de0a1b4f4f75a04f978bbf2a39604e6222ed2284"
+    "S3DeploymentBucket": "amplify-amplify-datastore-demo-dev-180513-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/3e39619937ec8ce0f113d9c3462ab04cdbd93b48"
 }

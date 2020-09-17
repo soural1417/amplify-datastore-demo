@@ -10,6 +10,8 @@ type Todo {
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 enum ModelSortDirection {
@@ -110,6 +112,19 @@ input ModelTodoFilterInput {
   not: ModelTodoFilterInput
 }
 
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
 type Query {
   syncTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTodoConnection
   getTodo(id: ID!): Todo
@@ -147,19 +162,6 @@ input ModelTodoConditionInput {
   and: [ModelTodoConditionInput]
   or: [ModelTodoConditionInput]
   not: ModelTodoConditionInput
-}
-
-enum ModelAttributeTypes {
-  binary
-  binarySet
-  bool
-  list
-  map
-  number
-  numberSet
-  string
-  stringSet
-  _null
 }
 
 type Subscription {
